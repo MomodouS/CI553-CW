@@ -133,4 +133,3 @@ public class CustomerModel extends Observable
     return new Basket();
   }
 }
-

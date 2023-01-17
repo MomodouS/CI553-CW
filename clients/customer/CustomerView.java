@@ -29,7 +29,7 @@ public class CustomerView implements Observer
   private static final int W = 400;       // Width  of window pixels
 
   private final JLabel      theAction  = new JLabel();
-  private final JTextField  theInput   = new JTextField();
+  private final JComboBox   theInput = new JComboBox();
   private final JTextArea   theOutput  = new JTextArea();
   private final JScrollPane theSP      = new JScrollPane();
   private final JButton     theBtCheck = new JButton( Name.CHECK );
@@ -66,7 +66,7 @@ public class CustomerView implements Observer
 
     theBtCheck.setBounds( 16, 25+60*0, 80, 40 );    // Check button
     theBtCheck.addActionListener(                   // Call back code
-      e -> cont.doCheck( theInput.getText() ) );
+      e -> cont.doCheck((String) theInput.getSelectedItem()) );
     cp.add( theBtCheck );                           //  Add to canvas
 
     theBtClear.setBounds( 16, 25+60*1, 80, 40 );    // Clear button
@@ -78,9 +78,14 @@ public class CustomerView implements Observer
     theAction.setText( "" );                        //  Blank
     cp.add( theAction );                            //  Add to canvas
 
-    theInput.setBounds( 110, 50, 270, 40 );         // Product no area
-    theInput.setText("");                           // Blank
-    cp.add( theInput );                             //  Add to canvas
+    theInput.setBounds( 110, 50, 120, 40 );         // ComboBox Area
+    int i = 0001;
+    while (i<8) {
+      theInput.addItem("000"+i);                                      // Items to be added
+      i++;
+    }
+    theInput.getItemAt(Integer.parseInt("0"));                           // Blank
+    cp.add( theInput );     
     
     theSP.setBounds( 110, 100, 270, 160 );          // Scrolling pane
     theOutput.setText( "" );                        //  Blank

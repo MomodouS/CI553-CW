@@ -1,3 +1,4 @@
+
 package clients.cashier;
 
 import catalogue.Basket;
@@ -61,7 +62,7 @@ public class CashierModel extends Observable
     String theAction = "";
     theState  = State.process;                  // State process
     pn  = productNum.trim();                    // Product no.
-    int    amount  = 1;                         //  & quantity
+    int    amount  = 1;                         //  & quantity   MAKE THIS CHANGE DEPENDING ON ANOTHER TEXTBOX GONNA ADD 
     try
     {
       if ( theStock.exists( pn ) )              // Stock Exists?

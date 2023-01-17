@@ -1,3 +1,4 @@
+
 package clients.backDoor;
 
 import middle.MiddleFactory;
@@ -24,14 +25,14 @@ public class BackDoorView implements Observer
   private static final int W = 400;       // Width  of window pixels
 
   private final JLabel      theAction  = new JLabel();
-  private final JTextField  theInput   = new JTextField();
   private final JTextField  theInputNo = new JTextField();
   private final JTextArea   theOutput  = new JTextArea();
+  private final JComboBox   theInput = new JComboBox();
   private final JScrollPane theSP      = new JScrollPane();
   private final JButton     theBtClear = new JButton( CLEAR );
   private final JButton     theBtRStock = new JButton( RESTOCK );
   private final JButton     theBtQuery = new JButton( QUERY );
-  
+
   private StockReadWriter theStock     = null;
   private BackDoorController cont= null;
 
@@ -59,18 +60,18 @@ public class BackDoorView implements Observer
     
     Font f = new Font("Monospaced",Font.PLAIN,12);  // Font f is
 
-    theBtQuery.setBounds( 16, 25+60*0, 80, 40 );    // Buy button 
+    theBtQuery.setBounds( 16, 25+60*0, 80, 40 );    // Query button
     theBtQuery.addActionListener(                   // Call back code
-      e -> cont.doQuery( theInput.getText() ) );
+      e -> cont.doQuery((String) theInput.getSelectedItem()) );
     cp.add( theBtQuery );                           //  Add to canvas
 
-    theBtRStock.setBounds( 16, 25+60*1, 80, 40 );   // Check Button
+    theBtRStock.setBounds( 16, 25+60*1, 80, 40 );   // Add Button
     theBtRStock.addActionListener(                  // Call back code
-      e -> cont.doRStock( theInput.getText(),
+      e -> cont.doRStock(String.valueOf((String)theInput.getSelectedItem()),
                           theInputNo.getText() ) );
     cp.add( theBtRStock );                          //  Add to canvas
 
-    theBtClear.setBounds( 16, 25+60*2, 80, 40 );    // Buy button 
+    theBtClear.setBounds( 16, 25+60*2, 80, 40 );    // Clear button
     theBtClear.addActionListener(                   // Call back code
       e -> cont.doClear() );
     cp.add( theBtClear );                           //  Add to canvas
@@ -80,8 +81,13 @@ public class BackDoorView implements Observer
     theAction.setText( "" );                        // Blank
     cp.add( theAction );                            //  Add to canvas
 
-    theInput.setBounds( 110, 50, 120, 40 );         // Input Area
-    theInput.setText("");                           // Blank
+    theInput.setBounds( 110, 50, 120, 40 );         // ComboBox Area
+    int i = 0001;
+    while (i<8) {
+      theInput.addItem("000"+i);                                      // Items to be added
+      i++;
+    }
+    theInput.getItemAt(Integer.parseInt("0"));                           // Blank
     cp.add( theInput );                             //  Add to canvas
     
     theInputNo.setBounds( 260, 50, 120, 40 );       // Input Area
@@ -96,7 +102,7 @@ public class BackDoorView implements Observer
     rootWindow.setVisible( true );                  // Make visible
     theInput.requestFocus();                        // Focus is here
   }
-  
+
   public void setController( BackDoorController c )
   {
     cont = c;
