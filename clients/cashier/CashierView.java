@@ -26,6 +26,7 @@ public class CashierView implements Observer
 
   private final JLabel      theAction  = new JLabel();
   private final JComboBox   theInput = new JComboBox();
+  private final JTextField  theInputNo = new JTextField();
   private final JTextArea   theOutput  = new JTextArea();
   private final JScrollPane theSP      = new JScrollPane();
   private final JButton     theBtCheck = new JButton( CHECK );
@@ -64,7 +65,8 @@ public class CashierView implements Observer
 
     theBtCheck.setBounds( 16, 25+60*0, 80, 40 );    // Check Button
     theBtCheck.addActionListener(                   // Call back code
-      e -> cont.doCheck((String) theInput.getSelectedItem()) );
+      e -> cont.doCheck((String) theInput.getSelectedItem(),
+      theInputNo.getText() ));
     cp.add( theBtCheck );                           //  Add to canvas
 
     theBtBuy.setBounds( 16, 25+60*1, 80, 40 );      // Buy button 
@@ -89,7 +91,11 @@ public class CashierView implements Observer
     }
     theInput.getItemAt(Integer.parseInt("0"));                           // Blank
     cp.add( theInput );                             //  Add to canvas
-    
+
+    theInputNo.setBounds( 260, 50, 120, 40 );       // Input Area
+    theInputNo.setText("0");                        // 0
+    cp.add( theInputNo );                           //  Add to canvas
+
 
     theSP.setBounds( 110, 100, 270, 160 );          // Scrolling pane
     theOutput.setText( "" );                        //  Blank
